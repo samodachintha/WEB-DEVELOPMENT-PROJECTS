@@ -12,6 +12,9 @@ let package = Package(
     platforms: [
         .iOS("15.2")
     ],
+    dependencies: [
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.6.1"))
+    ],
     products: [
         .iOSApplication(
             name: "MapApp",
@@ -37,6 +40,9 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "AppModule",
+            dependencies: [
+                .product(name: "Alamofire", package: "Alamofire")
+            ],
             path: ".",
             resources: [
                 .process("Resources")
