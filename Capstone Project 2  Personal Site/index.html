@@ -12,11 +12,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
 </head>
-<body></body>
+<body>
     <header>
-        <div class="logo">SAMOD ACHINTHA    </div>
+        <div class="logo">SAMOD ACHINTHA</div>
         <nav>
             <ul>
                 <li><a href="#hero">Home</a></li>
@@ -30,6 +40,9 @@
 
     <main>  
         <section id="hero">
+            <!-- 3D Canvas Background for Hero -->
+            <div id="canvas-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+            
             <div class="hero-content">
                 <h1>Hi, I'm <span class="highlight">Samod Achintha</span>.</h1>
                 <p class="subtitle">An IT Enthusiast specializing in Administration, Operations, and Web Development.</p>
@@ -48,7 +61,7 @@
                     <div class="timeline-item">
                         <h4>Bachelor of Information Technology</h4>
                         <span class="date">2023 - Present</span>
-                        <p>University of Colombo School of Computing, Sri Lanka</p>
+                        <p>University of Colombo School of Computing<br> Colombo, Sri Lanka</p>
                     </div>
                     <div class="timeline-item">
                         <h4>Diploma in Computer Applications</h4>
@@ -66,13 +79,13 @@
                     <h3>Work Experience</h3>
                     <div class="timeline-item">
                         <h4>Administration Manager</h4>
-                        <span class="date">2023 - 2025</span>
-                        <p>Lanka Pets Aquatics<br>Managed administrative and operational functions. Handled import/export documentation.</p>
+                        <span class="date">2023 - Present</span>
+                        <p>Lanka Pets Aquatics<br>Managing administrative and operational functions. Handling import/export documentation.</p>
                     </div>
                     <div class="timeline-item">
                         <h4>Operations Manager</h4>
                         <span class="date">2021 - 2023</span>
-                        <p>Lanka Pets Aquatics<br>Oversaw daily operations and shipment handling.</p>
+                        <p>Lanka Pets Aquatics<br>Managed daily operations and shipment handling.</p>
                     </div>
                     <div class="timeline-item">
                         <h4>Documentation Assistant</h4>
@@ -83,22 +96,23 @@
             </div>
 
             <div class="skills-section">
-                <h3>Technical Skills</h3>
+                <h3>Technical & Core Skills</h3>
                 <div class="skills-list">
+                    <span class="skill-tag">Web Development</span>
+                    <span class="skill-tag">HTML5 & CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
                     <span class="skill-tag">Administration</span>
-                    <span class="skill-tag">Operations</span>
+                    <span class="skill-tag">Operations Management</span>
                     <span class="skill-tag">Logistics Coordination</span>
-                    <span class="skill-tag">HTML5</span>
-                    <span class="skill-tag">CSS3</span>
-                    <span class="skill-tag">AI Prompting</span>
                     <span class="skill-tag">Team Leadership</span>
+                    <span class="skill-tag">Problem Solving</span>
                 </div>
             </div>
             
             <div class="resume-link">
-                <a href="../Capstone Project 1 - Online Resume/index.html" class="btn btn-secondary" target="_blank">View Detailed Resume (Capstone 1)</a>
+                <a href="https://samodachintha.github.io/capstone-1/" class="btn btn-secondary" target="_blank">Resume</a>
             </div>
-        </section>
+        </section> 
         <section id="projects">
             <h2 class="section-title">Selected Works</h2>
             <div class="projects-grid">
@@ -126,8 +140,8 @@
         <section id="about">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
-                <p>Hello! I'm Samod, a motivated professional seeking opportunities to leverage my administrative and operational expertise while expanding my capabilities in Information Technology.</p>
-                <p>I am passionate about Web Development, Artificial Intelligence (AI), and emerging digital solutions, with a strong interest in building smart, efficient, and user-focused systems. I'm committed to continuous learning and contributing to organizational growth through a blend of technical innovation and operational excellence.</p>
+                <p>Hello! I'm Samod, a motivated IT professional and Web Developer with a strong foundation in administration and operations. I seek opportunities to leverage my dual expertise in managing complex operational workflows while building smart, efficient digital solutions.</p>
+                <p>I am deeply passionate about Web Development, Artificial Intelligence (AI), and emerging technologies. Having managed logistics and operations at a high level, I bring a unique, process-oriented mindset to software engineering. I am committed to continuous learning, delivering high-quality user experiences, and contributing to organizational growth through a blend of technical innovation and operational excellence.</p>
             </div>
         </section>
 
@@ -135,10 +149,10 @@
             <h2 class="section-title">Get In Touch</h2>
             <p>I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
             <div class="contact-info">
-                <a href="../Capstone Project 1 - Online Resume/Pages/contatct.html" class="btn btn-primary" target="_blank">Contact Me</a>
+                <a href="./Pages/contatct.html" class="btn btn-primary">Contact Me</a>
             </div>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/samod-achintha-b6b4a321b/">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/samod-achintha">LinkedIn</a>
                 <a href="https://github.com/samodachintha">GitHub</a>
             </div>
         </section>
@@ -147,5 +161,43 @@
     <footer>
         <p>© 2026 Samod Achintha. All Rights Reserved.</p>
     </footer>
+    <script>
+        let lastScrollTop = 0;
+        let scrollTimeout;
+        let isScrollingUp = false;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Determine scroll direction
+            if (scrollTop < lastScrollTop) {
+                isScrollingUp = true;
+            } else if (scrollTop > lastScrollTop) {
+                isScrollingUp = false;
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            
+            // Hide the header immediately upon any active scrolling, unless at extremely top
+            if (scrollTop > 50) {
+                header.classList.add('header-hidden');
+            } else {
+                header.classList.remove('header-hidden');
+            }
+            
+            // Clear the existing timeout
+            window.clearTimeout(scrollTimeout);
+            
+            // Set a timer to check when the user stops scrolling
+            scrollTimeout = setTimeout(() => {
+                // If they stopped after scrolling up (or are at the top), show it
+                if (isScrollingUp || scrollTop <= 50) {
+                    header.classList.remove('header-hidden');
+                }
+            }, 200); // Wait 200ms after scroll to count as "stopping"
+        });
+    </script>
+    <script type="module" src="js/index.js"></script>
 </body>
 </html>
+    
