@@ -1,9 +1,9 @@
-//var generateName = require('sillyname');
+// var generateName = require('sillyname');
 
-//import generateName from "sillyname"
-//var sillyName = generateName();
+// import generateName from "sillyname"
+// var sillyName = generateName();
 
-//console.log(`My Name is ${sillyName}.`);
+// console.log(`My Name is ${sillyName}.`);
 
 import getSuperhero from "superheros"
 var superhero = getSuperhero();
